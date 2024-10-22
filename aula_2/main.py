@@ -1,9 +1,10 @@
 from fastapi import FastAPI, status
 from fastapi import Path
+from fastapi import Query
 from custom_execptions import ApiKeyErrorExceptions
 from models import Curso
-from typing import Any
-
+from typing import Any, Optional
+#TODO documentar código e personalizar documentação fastapi
 app = FastAPI()
 
 cursos = {
@@ -101,6 +102,7 @@ async def delete_curso(curso_id: int):
     #TODO COLOCAR TRATAMENTO DE ERRO CASO NÂO HOUVER ID DO CURSO PARA DELETAR
     """
     delete a curso in api
+
     :param curso_id: int of id
     :return:
     """
@@ -108,6 +110,28 @@ async def delete_curso(curso_id: int):
     if curso_id in cursos:
 
         del cursos[curso_id]
+
+# Aprendendo conceito de Query Parameters
+@app.get('/calculadora')
+async def sum(a: int = Query(title='A number for sum', description='Number greater than 5', gt=5),
+              b: int = Query(title='A number for sum', description='Number greater than 5', gt=5),
+              c: Optional[int] = None) -> dict:
+    #TODO realizar tratamento de erro para inputs menores que 5
+    """
+    learning concept about it QUERY PARAMETERS
+
+    :param a: a number for sum
+    :param b: a number for sum
+    :param c: a number for sum
+
+    :return: a json from result of a sum
+    """
+    result = a + b
+
+    if c:
+        result = result + c
+
+    return {'resultado': result}
 
 if __name__ == '__main__':
     import uvicorn
