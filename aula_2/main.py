@@ -1,29 +1,45 @@
+
+from typing import Any, Optional, List, Dict
+from time import sleep
+
 from fastapi import FastAPI, status
 from fastapi import Path
 from fastapi import Query
+from fastapi import Depends
 from custom_execptions import ApiKeyErrorExceptions
 from models import Curso
-from typing import Any, Optional
+
 #TODO documentar código e personalizar documentação fastapi
-app = FastAPI()
+
+#conceito de injeção de dependencias
+def fake_db() -> None:
+    print('Abrindo conexão com banco de dados..')
+    sleep(1)
+    print('Conectado...')
+
+app = FastAPI(
+    title='API DE APRENDIZADO',
+    description='Esta api é apenas para estudar o framework fastapi.',
+    version='0.0.9',
+    docs_url='/basicdocs',
+    redoc_url='/completedocs'
+)
 
 cursos = {
-    1: {
-        'titulo': 'Teste',
-        'aulas': 112,
-        'horas': 58
-    },
+    1:Curso(id=1, titulo='Teste testenildo testesan', aulas=112, horas=58),
 
-    2: {
-        'titulo': 'teste 2',
-        'aulas': 1144,
-        'horas': 2000
-    }
+    2:Curso(id=2, titulo='Teste 2 e 2', aulas=500, horas=800),
 }
 
 
-@app.get('/cursos')
-async def get_cursos() -> dict:
+@app.get('/cursos',
+         description='Retorna todos os cursos ou uma lista vazia',
+         summary='Retorna todos os curso',
+         response_model=Dict[int, Curso],
+         response_description='Cursos encontrados com sucesso'
+         )
+
+async def get_cursos(db: Any = Depends(fake_db)) -> dict:
     """
     get dict of course
 
@@ -113,7 +129,7 @@ async def delete_curso(curso_id: int):
 
 # Aprendendo conceito de Query Parameters
 @app.get('/calculadora')
-async def sum(a: int = Query(title='A number for sum', description='Number greater than 5', gt=5),
+async def sum_numbers(a: int = Query(title='A number for sum', description='Number greater than 5', gt=5),
               b: int = Query(title='A number for sum', description='Number greater than 5', gt=5),
               c: Optional[int] = None) -> dict:
     #TODO realizar tratamento de erro para inputs menores que 5
