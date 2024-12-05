@@ -8,6 +8,6 @@ async def get_session() -> Generator:
     session: AsyncSession = DBSESSION
 
     try:
-        yield DBSESSION
+        yield session
     finally:
-        await DBSESSION.close()
+        await session.close()

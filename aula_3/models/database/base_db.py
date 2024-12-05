@@ -1,4 +1,5 @@
 from aula_3.config import settings
+from aula_3.models.database.curso_db import CursoModel
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
@@ -9,5 +10,6 @@ DBSESSION = scoped_session(sessionmaker(bind=ENGINE_ALCHEMY, expire_on_commit=Fa
 SESSION = scoped_session(sessionmaker(bind=ENGINE_ALCHEMY))
 BASE = declarative_base()
 
-def connection_db():
-    BASE.metada.connection_db(ENGINE_ALCHEMY)
+def create_tables():
+    CursoModel()
+    BASE.metada.create_tables(ENGINE_ALCHEMY)
