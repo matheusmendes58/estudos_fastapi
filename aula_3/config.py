@@ -12,10 +12,10 @@ class AllSettings:
         self.api_v1_str = '/api/v1'
 
         # Mysql
-        self.user_db = '***'
-        self.pwd_db = '***'
-        self.host_db = '***'
-        self.db = '***'
-        self.connect_db = f'mysq+pysql://{self.user_db}:{self.pwd_db}@{self.host_db}/{self.db}'
+        self.user_db = ''
+        self.pwd_db = ''
+        self.host_db = ''
+        self.db = ''
+        self.connect_db = f'mysql+pymysql://{self.user_db}:{self.pwd_db}@{self.host_db}/{self.db}'
 
 settings = AllSettings()
