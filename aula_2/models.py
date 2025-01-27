@@ -1,6 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel, field_validator
-from custom_execptions import ApiValidatorWordPost
+from aula_2.custom_execptions import ApiValidatorWordPost
 
 
 class Curso(BaseModel):

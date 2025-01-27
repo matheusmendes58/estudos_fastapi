@@ -2,6 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel as SCBasemodel
 
+
 class CursoSchema(SCBasemodel):
 
     id: Optional[int]
@@ -10,4 +11,4 @@ class CursoSchema(SCBasemodel):
     horas: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
