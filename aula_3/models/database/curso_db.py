@@ -1,3 +1,5 @@
+from sqlalchemy.exc import SQLAlchemyError
+
 from aula_3.models.database.base_db import BASE, DBSESSION
 
 from sqlalchemy import Column, INTEGER, VARCHAR
@@ -66,7 +68,7 @@ class CursoModel(BASE):
         """
 
         try:
-             return DBSESSION.query(CursoModel).filter(CursoModel.id_curso == curso_id).all()
+             return DBSESSION.query(CursoModel).filter(CursoModel.id_curso == curso_id).first()
         except Exception as e:
             raise e
 
@@ -104,8 +106,9 @@ class CursoModel(BASE):
         """
 
         try:
-            DBSESSION.query(CursoModel).filter(CursoModel.id_curso == id_curso).delete()
+            DBSESSION.query(CursoModel).filter(CursoModel.id_curso == id_curso).delete(synchronize_session=False)
             DBSESSION.commit()
 
-        except Exception as e:
+        except SQLAlchemyError as e:
+            DBSESSION.rollback()
             raise e

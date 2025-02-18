@@ -5,7 +5,7 @@ from pydantic import BaseModel as SCBasemodel
 
 class CursoSchema(SCBasemodel):
 
-    id: Optional[int]
+    id_curso: Optional[int]
     titulo: str
     aulas: int
     horas: int

@@ -1,8 +1,7 @@
-#TODO Realizar teste de maneiras 1 e 2 post
 #TODO Maneira 1 não esta funcionando necessario arruma-lo
-#TODO Select all não esta funcionando arruma-lo
 #TODO Escolher qual melhor opção e manter uma comentado
 #TODO Colocar docstrings nas funções
+#TODO Funções testadas e corrigidas só falta a maneira 1
 
 from typing import List
 
@@ -97,11 +96,11 @@ async def update_curso(curso_id: int, curso: CursoSchema) -> CursoSchema:
 #DELETE
 @router.delete('/{curso_id}', status_code=status.HTTP_204_NO_CONTENT)
 
-async def delete_a_course(curso: CursoSchema) -> Response:
+async def delete_a_course(curso_id: int) -> Response:
 
     try:
         CursoModel.delete_a_row(
-            id_curso=curso.id
+            id_curso=curso_id
         )
 
         return Response(status_code=status.HTTP_204_NO_CONTENT)
