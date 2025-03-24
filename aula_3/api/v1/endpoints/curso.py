@@ -1,43 +1,14 @@
-#TODO Maneira 1 não esta funcionando necessario arruma-lo
-#TODO Escolher qual melhor opção e manter uma comentado
 #TODO Colocar docstrings nas funções
-#TODO Funções testadas e corrigidas só falta a maneira 1
-
+#TODO Melhorar funções post e get
+#TODO Colocar tratativa de erros
 from typing import List
-
 from fastapi import APIRouter
 from fastapi import status
-from fastapi import Depends
 from fastapi import Response
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from sqlalchemy.future import select
-
-from aula_2.models import Curso
 from aula_3.models.database.curso_db import CursoModel
 from aula_3.schema.curso_schema import CursoSchema
 
-from aula_3.core.dependencies import get_session
-
 router = APIRouter()
-
-# @router.post('/maneira1', status_code=status.HTTP_201_CREATED, response_model=CursoSchema)
-#
-# #maneira 1
-# async def post_curso(curso: CursoSchema, db: AsyncSession = Depends(get_session)) -> CursoSchema:
-#
-#     new_course = CursoModel(
-#         titulo=curso.titulo,
-#         aulas=curso.aulas,
-#         horas=curso.horas
-#     )
-#
-#     db.add(new_course)
-#     await db.commit()
-#
-#     return new_course
-
-#Maneira 2
 
 @router.post('/maneira2', status_code=status.HTTP_201_CREATED, response_model=CursoSchema)
 
