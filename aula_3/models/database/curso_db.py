@@ -4,7 +4,6 @@ from aula_3.models.database.base_db import BASE, DBSESSION
 
 from sqlalchemy import Column, INTEGER, VARCHAR
 
-
 class CursoModel(BASE):
 
     __tablename__ = 'cursos'
@@ -85,7 +84,6 @@ class CursoModel(BASE):
         """
 
         course_update = {
-            'id_curso': id_curso,
             'titulo': titulo,
             'aulas': aulas,
             'horas': horas
@@ -93,8 +91,12 @@ class CursoModel(BASE):
 
         course = {key: value for key, value in course_update.items() if value is not None}
 
-        DBSESSION.query(CursoModel).filter(CursoModel.id_curso == id_curso).update(course)
-        DBSESSION.commit()
+        try:
+            DBSESSION.query(CursoModel).filter(CursoModel.id_curso == id_curso).update(course)
+            DBSESSION.commit()
+        except Exception as e:
+            DBSESSION.rollback()
+            raise e
 
     @classmethod
     def delete_a_row(cls, id_curso: int) -> None:

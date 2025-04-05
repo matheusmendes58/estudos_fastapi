@@ -1,10 +1,7 @@
-from typing import List
-
-from pydantic import ConfigDict
 
 class AllSettings:
     """
-    General configs from applications
+    General config from applications
     """
 
     def __init__(self):
