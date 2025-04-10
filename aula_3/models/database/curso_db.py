@@ -47,7 +47,7 @@ class CursoModel(BASE):
     @classmethod
     def select_all_cursos(cls) -> list:
         """
-        select all courses
+        select all courses in database
 
         :return: A list of courses
         """
@@ -60,7 +60,7 @@ class CursoModel(BASE):
     @classmethod
     def select_curso(cls, curso_id: int) -> dict:
         """
-        Get a curso
+        Get a curso in database
 
         :param curso_id: Number of course
         :return: A dict with information of course

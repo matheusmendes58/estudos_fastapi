@@ -10,5 +10,11 @@ SESSION = scoped_session(sessionmaker(bind=ENGINE_ALCHEMY))
 BASE = declarative_base()
 
 def create_all():
+    """
+    Create table in database.
+    However, if it has already been created, it can be used as a connection test.
+
+    :return: None
+    """
     from aula_3.models.database.curso_db import CursoModel
     BASE.metadata.create_all(ENGINE_ALCHEMY)
